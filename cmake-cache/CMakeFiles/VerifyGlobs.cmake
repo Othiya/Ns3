@@ -6,9 +6,14 @@ file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/farihanisraq/ns-allinone-3.45/n
 set(OLD_GLOB
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/CMakeLists.txt"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/first"
-  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/first.cc"
-  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/fourth.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/nested-subdir"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/newVegas.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/plot-quick-vegas-802154.py"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/plot-quick-vegas-dumbbell.py"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-802154-star-mesh.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-convergence.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-dumbbell-sweeps.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-queue.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-test.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/scratch-simulator.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/second.cc"
@@ -23,8 +28,11 @@ endif()
 # single_source_file_scratches at scratch/CMakeLists.txt:77 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/[^.]*.cc")
 set(OLD_GLOB
-  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/first.cc"
-  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/fourth.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/newVegas.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-802154-star-mesh.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-convergence.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-dumbbell-sweeps.cc"
+  "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-queue.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/quick-vegas-test.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/scratch-simulator.cc"
   "/Users/farihanisraq/ns-allinone-3.45/ns-3.45/scratch/second.cc"

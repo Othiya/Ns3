@@ -11,24 +11,58 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("QuickVegasBasic");
 
+
+
 static std::ofstream g_cwndFile;
 static std::ofstream g_queueFile;
 static std::ofstream g_throughputFile;
-static std::ofstream g_rttFile;  // NEW
+static std::ofstream g_rttFile;
+static std::ofstream g_flowThroughputFile;
 
 static uint64_t g_lastRxBytes = 0;
+static uint32_t g_lastCwnd    = 0;
 static Ptr<PacketSink> g_sink;
 
 
-// NEW: RTT tracer callback
+static Ptr<FlowMonitor>        g_flowMonitor;
+static Ptr<Ipv4FlowClassifier> g_classifier;
+static uint64_t                g_flowLastRxBytes = 0;
+
+
+static void
+FlowThroughputSampler(Ipv4Address d1Addr)
+{
+    g_flowMonitor->CheckForLostPackets();
+
+    const FlowMonitor::FlowStatsContainer& stats = g_flowMonitor->GetFlowStats();
+
+    for (auto& kv : stats)
+    {
+        Ipv4FlowClassifier::FiveTuple t = g_classifier->FindFlow(kv.first);
+
+        if (t.destinationAddress == d1Addr && t.protocol == 6)
+        {
+            uint64_t currentRx = kv.second.rxBytes;
+            double   mbps      = (currentRx - g_flowLastRxBytes) * 8.0 / 1e6;
+            g_flowLastRxBytes  = currentRx;
+
+            g_flowThroughputFile << Simulator::Now().GetSeconds()
+                                 << "\t" << mbps << "\n";
+            g_flowThroughputFile.flush();
+            break;
+        }
+    }
+
+    Simulator::Schedule(Seconds(1.0), &FlowThroughputSampler, d1Addr);
+}
+
 static void
 RttTracer(Time oldRtt, Time newRtt)
 {
-    g_rttFile << Simulator::Now().GetSeconds() << "\t" 
+    g_rttFile << Simulator::Now().GetSeconds() << "\t"
               << newRtt.GetMilliSeconds() << "\n";
 }
 
-// NEW: Connect RTT trace
 static void
 ConnectRttTrace()
 {
@@ -37,24 +71,26 @@ ConnectRttTrace()
         MakeCallback(&RttTracer));
 }
 
-
-
-
-
-
 static void
 CwndTracer(uint32_t oldVal, uint32_t newVal)
 {
-    uint32_t segSize = 1000;
-    double cwndPackets = (double)newVal / segSize;
-    g_cwndFile << Simulator::Now().GetSeconds() << "\t" << cwndPackets << "\n";
+    g_lastCwnd = newVal;
+}
+
+static void
+CwndSampler()
+{
+    uint32_t segSize  = 1000;
+    double   cwndPkts = static_cast<double>(g_lastCwnd) / segSize;
+    g_cwndFile << Simulator::Now().GetSeconds() << "\t" << cwndPkts << "\n";
+    Simulator::Schedule(Seconds(1.0), &CwndSampler);
 }
 
 static void
 ThroughputSampler()
 {
-    uint64_t rx = g_sink->GetTotalRx();
-    double mbps = (rx - g_lastRxBytes) * 8.0 / 1e6;
+    uint64_t rx   = g_sink->GetTotalRx();
+    double   mbps = (rx - g_lastRxBytes) * 8.0 / 1e6;
     g_lastRxBytes = rx;
     g_throughputFile << Simulator::Now().GetSeconds() << "\t" << mbps << "\n";
     Simulator::Schedule(Seconds(1.0), &ThroughputSampler);
@@ -79,26 +115,37 @@ ConnectCwndTrace()
 int
 main(int argc, char* argv[])
 {
-    LogComponentEnable("TcpQuickVegas", LOG_LEVEL_DEBUG);
     LogComponentEnable("QuickVegasBasic", LOG_LEVEL_INFO);
+    LogComponentEnable("TcpQuickVegas", LOG_LEVEL_DEBUG);
 
-    std::string tcpVariant = "TcpVegas";
+
+    std::string tcpVariant = "TcpQuickVegas";
+
+
+    uint32_t    vegasAlpha = 20; 
+    uint32_t    vegasBeta  = 40;
+    uint32_t    vegasGamma = 10;
 
     CommandLine cmd;
     cmd.AddValue("tcpVariant", "TCP variant: TcpVegas or TcpQuickVegas", tcpVariant);
+    cmd.AddValue("vegasAlpha", "Vegas alpha (queue target lower bound)",   vegasAlpha);
+    cmd.AddValue("vegasBeta",  "Vegas beta  (queue target upper bound)",   vegasBeta);
+    cmd.AddValue("vegasGamma", "Vegas gamma (slow-start threshold)",       vegasGamma);
     cmd.Parse(argc, argv);
+
 
     Config::SetDefault("ns3::TcpL4Protocol::SocketType",
                        StringValue("ns3::" + tcpVariant));
-    Config::SetDefault("ns3::TcpVegas::Alpha", UintegerValue(2));
-    Config::SetDefault("ns3::TcpVegas::Beta",  UintegerValue(4));
-    Config::SetDefault("ns3::TcpVegas::Gamma", UintegerValue(1));
+
+    // TcpVegas attributes are inherited by TcpQuickVegas via SetParent<TcpVegas>
+    Config::SetDefault("ns3::TcpVegas::Alpha", UintegerValue(vegasAlpha));
+    Config::SetDefault("ns3::TcpVegas::Beta",  UintegerValue(vegasBeta));
+    Config::SetDefault("ns3::TcpVegas::Gamma", UintegerValue(vegasGamma));
+
     Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue(1000));
+    Config::SetDefault("ns3::TcpSocket::SndBufSize",  UintegerValue(1048576));
+    Config::SetDefault("ns3::TcpSocket::RcvBufSize",  UintegerValue(1048576));
 
-    Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue(1048576));
-    Config::SetDefault("ns3::TcpSocket::RcvBufSize", UintegerValue(1048576));
-
-    
     uint32_t nCbr = 1;
     uint32_t n = 1 + nCbr;
 
@@ -107,6 +154,7 @@ main(int argc, char* argv[])
     routers.Create(2);
     destinations.Create(n);
 
+    
     PointToPointHelper access;
     access.SetDeviceAttribute("DataRate", StringValue("1Gbps"));
     access.SetChannelAttribute("Delay",   StringValue("1ms"));
@@ -115,22 +163,24 @@ main(int argc, char* argv[])
     std::vector<NetDeviceContainer> devR2_D(n);
     for (uint32_t i = 0; i < n; i++)
     {
-        devS_R1[i] = access.Install(sources.Get(i), routers.Get(0));
+        devS_R1[i] = access.Install(sources.Get(i),  routers.Get(0));
         devR2_D[i] = access.Install(routers.Get(1), destinations.Get(i));
     }
 
+    
     PointToPointHelper bottleneck;
     bottleneck.SetDeviceAttribute("DataRate", StringValue("50Mbps"));
     bottleneck.SetChannelAttribute("Delay",   StringValue("48ms"));
-  
-    bottleneck.SetQueue("ns3::DropTailQueue", "MaxSize", StringValue("1p"));
+    bottleneck.SetQueue("ns3::DropTailQueue", "MaxSize", StringValue("1000p"));
     NetDeviceContainer devR1R2 = bottleneck.Install(routers.Get(0), routers.Get(1));
 
+    
     InternetStackHelper stack;
     stack.Install(sources);
     stack.Install(routers);
     stack.Install(destinations);
 
+    
     Ipv4AddressHelper address;
     std::vector<Ipv4InterfaceContainer> ifS_R1(n);
     std::vector<Ipv4InterfaceContainer> ifR2_D(n);
@@ -156,7 +206,7 @@ main(int argc, char* argv[])
 
     Ipv4GlobalRoutingHelper::PopulateRoutingTables();
 
-    // TCP flow S1 to D1 
+  
     uint16_t tcpPort = 50001;
     BulkSendHelper bulk("ns3::TcpSocketFactory",
                         InetSocketAddress(ifR2_D[0].GetAddress(1), tcpPort));
@@ -171,9 +221,8 @@ main(int argc, char* argv[])
     tcpSinkApp.Start(Seconds(0.0));
     tcpSinkApp.Stop(Seconds(240.0));
 
-    // traffic
-    //double cbrPerFlow = 50.0 / nCbr; 
-    double cbrPerFlow = 25.0 / nCbr; 
+   
+    double cbrPerFlow = 25.0 / nCbr;
     std::ostringstream cbrRate;
     cbrRate << cbrPerFlow << "Mbps";
 
@@ -190,7 +239,7 @@ main(int argc, char* argv[])
 
         ApplicationContainer cbrSrcApp = cbr.Install(sources.Get(i));
         cbrSrcApp.Start(Seconds(80.0));
-        cbrSrcApp.Stop(Seconds(90.0));
+        cbrSrcApp.Stop(Seconds(160.0));
 
         PacketSinkHelper udpSink("ns3::UdpSocketFactory",
                                  InetSocketAddress(Ipv4Address::GetAny(), udpPort));
@@ -199,7 +248,7 @@ main(int argc, char* argv[])
         cbrSinkApp.Stop(Seconds(240.0));
     }
 
-  
+    
     TrafficControlHelper tchClean;
     tchClean.Uninstall(devR1R2);
 
@@ -208,47 +257,97 @@ main(int argc, char* argv[])
                          "MaxSize", StringValue("500p"));
     QueueDiscContainer qdiscs = tch.Install(devR1R2.Get(0));
 
-  
+ 
+    FlowMonitorHelper flowHelper;
+    g_flowMonitor = flowHelper.InstallAll();
+    g_classifier  = DynamicCast<Ipv4FlowClassifier>(flowHelper.GetClassifier());
+
+ 
     std::string prefix = tcpVariant + "-basic";
-    g_cwndFile.open(prefix + "-cwnd.dat");
-    g_queueFile.open(prefix + "-queue.dat");
-    g_throughputFile.open(prefix + "-throughput.dat");
-    g_rttFile.open(prefix + "-rtt.dat");  // NEW
+    g_cwndFile.open(prefix + "-Modifiedcwnd.dat");
+    g_queueFile.open(prefix + "-Modifiedqueue.dat");
+    g_throughputFile.open(prefix + "-Modifiedthroughput.dat");
+    g_rttFile.open(prefix + "-Modifiedrtt.dat");
+    g_flowThroughputFile.open(prefix + "-Modifiedflow-throughput-R2D1.dat");
 
-    g_cwndFile       << "# Time(s)\tCwnd(packets)\n";
-    g_queueFile      << "# Time(s)\tQueueLen(packets)\n";
-    g_throughputFile << "# Time(s)\tThroughput(Mbps)\n";
-    g_rttFile        << "# Time(s)\tRTT(ms)\n";  // NEW
-
+    g_cwndFile           << "# Time(s)\tCwnd(packets) [sampled @1s]\n";
+    g_queueFile          << "# Time(s)\tQueueLen(packets)\n";
+    g_throughputFile     << "# Time(s)\tThroughput(Mbps)\n";
+    g_rttFile            << "# Time(s)\tRTT(ms)\n";
+    g_flowThroughputFile << "# Time(s)\tR2-D1_Throughput(Mbps)  [FlowMonitor]\n";
 
     g_sink = DynamicCast<PacketSink>(tcpSinkApp.Get(0));
 
+  
     Simulator::Schedule(Seconds(0.001), &ConnectCwndTrace);
+    Simulator::Schedule(Seconds(1.0),   &CwndSampler);
     Simulator::Schedule(Seconds(0.1),   &QueueSampler, qdiscs.Get(0));
     Simulator::Schedule(Seconds(1.0),   &ThroughputSampler);
-    Simulator::Schedule(Seconds(1), &ConnectRttTrace);  // NEW
+    Simulator::Schedule(Seconds(1.0),   &ConnectRttTrace);
+
+    Ipv4Address d1Addr = ifR2_D[0].GetAddress(1);
+    Simulator::Schedule(Seconds(1.0), &FlowThroughputSampler, d1Addr);
 
     Simulator::Stop(Seconds(240.0));
     Simulator::Run();
 
+    g_flowMonitor->CheckForLostPackets();
+
+    std::cout << "\n===== FlowMonitor Summary: S0 → D0 (TCP, port 50001) =====\n";
+
+    const FlowMonitor::FlowStatsContainer& allStats = g_flowMonitor->GetFlowStats();
+    for (auto& kv : allStats)
+    {
+        Ipv4FlowClassifier::FiveTuple t = g_classifier->FindFlow(kv.first);
+        if (t.destinationAddress == d1Addr && t.protocol == 6)
+        {
+            const FlowMonitor::FlowStats& fs = kv.second;
+            double simDuration = 240.0;
+            double avgTput     = fs.rxBytes * 8.0 / (simDuration * 1e6);
+
+            std::cout << "  Flow ID            : " << kv.first            << "\n";
+            std::cout << "  Src  → Dst         : "
+                      << t.sourceAddress      << ":" << t.sourcePort << " → "
+                      << t.destinationAddress << ":" << t.destinationPort << "\n";
+            std::cout << "  Tx Packets         : " << fs.txPackets          << "\n";
+            std::cout << "  Rx Packets         : " << fs.rxPackets          << "\n";
+            std::cout << "  Lost Packets       : " << fs.lostPackets        << "\n";
+            std::cout << "  Rx Bytes           : " << fs.rxBytes            << " B\n";
+            std::cout << "  Avg Throughput     : " << avgTput               << " Mbps\n";
+            std::cout << "  Mean Delay         : "
+                      << (fs.rxPackets > 0
+                              ? fs.delaySum.GetMilliSeconds() / fs.rxPackets
+                              : 0.0)                                         << " ms\n";
+            std::cout << "  Mean Jitter        : "
+                      << (fs.rxPackets > 1
+                              ? fs.jitterSum.GetMilliSeconds() / (fs.rxPackets - 1)
+                              : 0.0)                                         << " ms\n";
+            break;
+        }
+    }
+
+    g_flowMonitor->SerializeToXmlFile(prefix + "-flowmonitor.xml", true, true);
+    std::cout << "\nFull FlowMonitor XML saved to: " << prefix + "-flowmonitor.xml\n";
+
+   
     g_cwndFile.close();
     g_queueFile.close();
     g_throughputFile.close();
-    g_rttFile.close();  // NEW
+    g_rttFile.close();
+    g_flowThroughputFile.close();
 
-    std::cout << "Queue drops: "
-              << qdiscs.Get(0)->GetStats().nTotalDroppedPackets << std::endl;
+  
+    std::cout << "\nQueue drops          : "
+              << qdiscs.Get(0)->GetStats().nTotalDroppedPackets << "\n";
 
-    double totalRx  = g_sink->GetTotalRx();
-    double avgTput  = (totalRx * 8.0) / (240.0 * 1e6);
-    std::cout << "=== " << tcpVariant << " Basic Behavior ===" << std::endl;
-    std::cout << "Total bytes received : " << totalRx << " bytes" << std::endl;
-    std::cout << "Average throughput   : " << avgTput << " Mbps" << std::endl;
+    double totalRx = g_sink->GetTotalRx();
+    double avgTput = (totalRx * 8.0) / (240.0 * 1e6);
+    std::cout << "=== " << tcpVariant << " Basic Behavior ===\n";
+    std::cout << "Total bytes received : " << totalRx << " bytes\n";
+    std::cout << "Average throughput   : " << avgTput << " Mbps\n";
 
     Simulator::Destroy();
     return 0;
 }
-
-
 
 

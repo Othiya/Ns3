@@ -1515,30 +1515,69 @@ zigbee/fast:
 .PHONY : zigbee/fast
 
 #=============================================================================
-# Target rules for targets named scratch_first
+# Target rules for targets named scratch_newVegas
 
 # Build rule for target.
-scratch_first: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_first
-.PHONY : scratch_first
+scratch_newVegas: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_newVegas
+.PHONY : scratch_newVegas
 
 # fast build rule for target.
-scratch_first/fast:
-	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_first.dir/build.make scratch/CMakeFiles/scratch_first.dir/build
-.PHONY : scratch_first/fast
+scratch_newVegas/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_newVegas.dir/build.make scratch/CMakeFiles/scratch_newVegas.dir/build
+.PHONY : scratch_newVegas/fast
 
 #=============================================================================
-# Target rules for targets named scratch_fourth
+# Target rules for targets named scratch_quick-vegas-802154-star-mesh
 
 # Build rule for target.
-scratch_fourth: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_fourth
-.PHONY : scratch_fourth
+scratch_quick-vegas-802154-star-mesh: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_quick-vegas-802154-star-mesh
+.PHONY : scratch_quick-vegas-802154-star-mesh
 
 # fast build rule for target.
-scratch_fourth/fast:
-	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_fourth.dir/build.make scratch/CMakeFiles/scratch_fourth.dir/build
-.PHONY : scratch_fourth/fast
+scratch_quick-vegas-802154-star-mesh/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_quick-vegas-802154-star-mesh.dir/build.make scratch/CMakeFiles/scratch_quick-vegas-802154-star-mesh.dir/build
+.PHONY : scratch_quick-vegas-802154-star-mesh/fast
+
+#=============================================================================
+# Target rules for targets named scratch_quick-vegas-convergence
+
+# Build rule for target.
+scratch_quick-vegas-convergence: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_quick-vegas-convergence
+.PHONY : scratch_quick-vegas-convergence
+
+# fast build rule for target.
+scratch_quick-vegas-convergence/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_quick-vegas-convergence.dir/build.make scratch/CMakeFiles/scratch_quick-vegas-convergence.dir/build
+.PHONY : scratch_quick-vegas-convergence/fast
+
+#=============================================================================
+# Target rules for targets named scratch_quick-vegas-dumbbell-sweeps
+
+# Build rule for target.
+scratch_quick-vegas-dumbbell-sweeps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_quick-vegas-dumbbell-sweeps
+.PHONY : scratch_quick-vegas-dumbbell-sweeps
+
+# fast build rule for target.
+scratch_quick-vegas-dumbbell-sweeps/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_quick-vegas-dumbbell-sweeps.dir/build.make scratch/CMakeFiles/scratch_quick-vegas-dumbbell-sweeps.dir/build
+.PHONY : scratch_quick-vegas-dumbbell-sweeps/fast
+
+#=============================================================================
+# Target rules for targets named scratch_quick-vegas-queue
+
+# Build rule for target.
+scratch_quick-vegas-queue: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_quick-vegas-queue
+.PHONY : scratch_quick-vegas-queue
+
+# fast build rule for target.
+scratch_quick-vegas-queue/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_quick-vegas-queue.dir/build.make scratch/CMakeFiles/scratch_quick-vegas-queue.dir/build
+.PHONY : scratch_quick-vegas-queue/fast
 
 #=============================================================================
 # Target rules for targets named scratch_quick-vegas-test
@@ -1856,9 +1895,12 @@ help:
 	@echo "... print-introspected-doxygen"
 	@echo "... propagation"
 	@echo "... scratch-nested-subdir-lib"
-	@echo "... scratch_first"
-	@echo "... scratch_fourth"
 	@echo "... scratch_nested-subdir_scratch-nested-subdir-executable"
+	@echo "... scratch_newVegas"
+	@echo "... scratch_quick-vegas-802154-star-mesh"
+	@echo "... scratch_quick-vegas-convergence"
+	@echo "... scratch_quick-vegas-dumbbell-sweeps"
+	@echo "... scratch_quick-vegas-queue"
 	@echo "... scratch_quick-vegas-test"
 	@echo "... scratch_scratch-simulator"
 	@echo "... scratch_second"

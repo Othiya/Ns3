@@ -402,8 +402,11 @@
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/examples/CMakeFiles/install.dir
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/examples/CMakeFiles/install/local.dir
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/examples/CMakeFiles/install/strip.dir
-/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_first.dir
-/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_fourth.dir
+/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_newVegas.dir
+/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_quick-vegas-802154-star-mesh.dir
+/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_quick-vegas-convergence.dir
+/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_quick-vegas-dumbbell-sweeps.dir
+/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_quick-vegas-queue.dir
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_quick-vegas-test.dir
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_scratch-simulator.dir
 /Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/scratch/CMakeFiles/scratch_second.dir

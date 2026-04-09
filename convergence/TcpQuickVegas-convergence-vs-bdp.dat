@@ -1,0 +1,7 @@
+# Time(s)	BDP(Kb)	ConvergenceTime(s)	Event	BaseRTT(s)	Convergence(BaseRTTs)
+0	500	2.55	new_connection	0.103452	24.6491
+80	500	1.65	bandwidth_halved	0.103452	15.9494
+160	500	1.35	bandwidth_doubled	0.103452	13.0495
+0	1000	4.2	new_connection	0.101591	41.3424
+80	1000	1.75	bandwidth_halved	0.101591	17.226
+160	1000	2.1	bandwidth_doubled	0.101591	20.6712

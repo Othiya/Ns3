@@ -6,7 +6,5 @@ CXX_DEFINES = -DHAVE_LIBXML2 -DHAVE_SQLITE3 -DNS3_ASSERT_ENABLE -DNS3_BUILD_PROF
 
 CXX_INCLUDES = -I/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libxml2 -I/opt/homebrew/include
 
-CXX_FLAGSarm64 = -O2 -g -DNDEBUG -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIC   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
-
-CXX_FLAGS = -O2 -g -DNDEBUG -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIC   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
+CXX_FLAGS = -O2 -g -DNDEBUG -std=c++20 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIC   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
 

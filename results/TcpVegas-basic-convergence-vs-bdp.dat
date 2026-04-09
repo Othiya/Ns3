@@ -1,0 +1,78 @@
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	1000	3.000000	new	25.071267
+80.000000	1000	1.000000	half	8.357089
+160.000000	1000	1.000000	double	8.357089
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	1000	3.000000	new	25.071267
+80.000000	1000	1.000000	half	8.357089
+160.000000	1000	1.000000	double	8.357089
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	2000	3.000000	new	29.766591
+80.000000	2000	1.000000	half	9.922197
+160.000000	2000	1.000000	double	9.922197
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	3000	3.000000	new	29.849903
+80.000000	3000	1.000000	half	9.949968
+160.000000	3000	1.000000	double	9.949968
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	4000	3.000000	new	29.892848
+80.000000	4000	1.000000	half	9.964283
+160.000000	4000	1.000000	double	9.964283
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	5000	3.000000	new	29.922510
+80.000000	5000	1.000000	half	9.977392
+160.000000	5000	1.000000	double	9.977392
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	6000	3.000000	new	29.934571
+80.000000	6000	1.000000	half	9.978190
+160.000000	6000	15.000000	double	149.984483
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	7000	3.000000	new	29.946360
+80.000000	7000	1.000000	half	9.982871
+160.000000	7000	1.000000	double	9.994243
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	8000	3.000000	new	29.953999
+80.000000	8000	3.000000	half	29.956822
+160.000000	8000	1.000000	double	9.992715
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	9000	3.000000	new	29.961319
+80.000000	9000	3.000000	half	29.962417
+160.000000	9000	1.000000	double	9.998360
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	10000	3.000000	new	29.968087
+80.000000	10000	3.000000	half	29.987057
+160.000000	10000	1.000000	double	9.998219
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	1000	3.000000	new	25.071267
+80.000000	1000	1.000000	half	8.357089
+160.000000	1000	1.000000	double	8.357089
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	2000	3.000000	new	29.766591
+80.000000	2000	1.000000	half	9.922197
+160.000000	2000	1.000000	double	9.922197
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	3000	3.000000	new	29.849903
+80.000000	3000	1.000000	half	9.949968
+160.000000	3000	1.000000	double	9.949968
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	4000	3.000000	new	29.892848
+80.000000	4000	1.000000	half	9.964283
+160.000000	4000	1.000000	double	9.964283
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	5000	3.000000	new	29.922510
+80.000000	5000	1.000000	half	9.977392
+160.000000	5000	1.000000	double	9.977392
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	6000	3.000000	new	29.934571
+80.000000	6000	1.000000	half	9.978190
+160.000000	6000	15.000000	double	149.984483
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	7000	3.000000	new	29.946360
+80.000000	7000	1.000000	half	9.982871
+160.000000	7000	1.000000	double	9.994243
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	8000	3.000000	new	29.953999
+80.000000	8000	3.000000	half	29.956822
+160.000000	8000	1.000000	double	9.992715
+# EventTime(s)	BDP(Kb)	ConvergenceTime(s)	Event	Convergence(BaseRTTs)
+0.000000	9000	3.000000	new	29.961319

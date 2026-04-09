@@ -1,0 +1,5 @@
+# sweep4_flows_delay_drop
+# columns: flows TcpVegas QuickVegas
+10	48.650163	97.971927
+20	100.803562	192.909325
+30	157.459375	288.468806

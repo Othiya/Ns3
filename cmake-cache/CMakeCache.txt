@@ -644,6 +644,12 @@ PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 PYTHON3:FILEPATH=/usr/bin/python3
 
 //Path to a program.
+ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
+
+//Path to a program.
+ProcessorCount_cmd_nproc:FILEPATH=ProcessorCount_cmd_nproc-NOTFOUND
+
+//Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
 //Path to sphinx-build executable
@@ -1067,6 +1073,10 @@ PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON3
 PYTHON3-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ProcessorCount_cmd_getconf
+ProcessorCount_cmd_getconf-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ProcessorCount_cmd_nproc
+ProcessorCount_cmd_nproc-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl
 ProcessorCount_cmd_sysctl-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SPHINX_EXECUTABLE
@@ -1403,11 +1413,11 @@ ns3-example-folders:INTERNAL=
 //ADVANCED property for variable: ns3-execs
 ns3-execs-ADVANCED:INTERNAL=1
 //list of c++ executables
-ns3-execs:INTERNAL=/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/perf/ns3.45-perf-io-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-print-introspected-doxygen-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-bench-packets-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-bench-scheduler-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/subdir/ns3.45-scratch-subdir-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/nested-subdir/ns3.45-scratch-nested-subdir-executable-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-third-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-second-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-scratch-simulator-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-test-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-fourth-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-first-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/contrib/nr/ns3.45-nr-print-introspected-doxygen-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/ns3.45-stdlib_pch_exec-default;
+ns3-execs:INTERNAL=/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/perf/ns3.45-perf-io-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-print-introspected-doxygen-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-bench-packets-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/utils/ns3.45-bench-scheduler-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/subdir/ns3.45-scratch-subdir-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/nested-subdir/ns3.45-scratch-nested-subdir-executable-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-third-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-second-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-scratch-simulator-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-test-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-queue-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-dumbbell-sweeps-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-convergence-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-quick-vegas-802154-star-mesh-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/scratch/ns3.45-newVegas-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/contrib/nr/ns3.45-nr-print-introspected-doxygen-default;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/ns3.45-stdlib_pch_exec-default;
 //ADVANCED property for variable: ns3-execs-clean
 ns3-execs-clean-ADVANCED:INTERNAL=1
 //list of c++ executables without version prefix and build suffix
-ns3-execs-clean:INTERNAL=perf-io;print-introspected-doxygen;bench-packets;bench-scheduler;scratch_subdir_scratch-subdir;scratch_nested-subdir_scratch-nested-subdir-executable;scratch_third;scratch_second;scratch_scratch-simulator;scratch_quick-vegas-test;scratch_fourth;scratch_first;nr-print-introspected-doxygen;stdlib_pch_exec;
+ns3-execs-clean:INTERNAL=perf-io;print-introspected-doxygen;bench-packets;bench-scheduler;scratch_subdir_scratch-subdir;scratch_nested-subdir_scratch-nested-subdir-executable;scratch_third;scratch_second;scratch_scratch-simulator;scratch_quick-vegas-test;scratch_quick-vegas-queue;scratch_quick-vegas-dumbbell-sweeps;scratch_quick-vegas-convergence;scratch_quick-vegas-802154-star-mesh;scratch_newVegas;nr-print-introspected-doxygen;stdlib_pch_exec;
 //ADVANCED property for variable: ns3-execs-py
 ns3-execs-py-ADVANCED:INTERNAL=1
 //list of python scripts

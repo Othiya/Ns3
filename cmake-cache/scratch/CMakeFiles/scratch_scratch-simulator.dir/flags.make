@@ -6,9 +6,7 @@ CXX_DEFINES = -DENABLE_ORAN -DHAS_NETSIMULYZER -DHAVE_BOOST -DHAVE_BOOST_UNITS -
 
 CXX_INCLUDES = -I/Users/farihanisraq/ns-allinone-3.45/ns-3.45/build/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libxml2 -I/opt/homebrew/include
 
-CXX_FLAGSarm64 = -O2 -g -DNDEBUG -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIE   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
-
-CXX_FLAGS = -O2 -g -DNDEBUG -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIE   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
+CXX_FLAGS = -O2 -g -DNDEBUG -std=c++20 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fPIE   -fcolor-diagnostics -Xclang -fno-pch-timestamp -Wall -Wpedantic
 
 # PCH options: scratch/CMakeFiles/scratch_scratch-simulator.dir/scratch-simulator.cc.o_OPTIONS = -Winvalid-pch;-Xclang;-include-pch;-Xclang;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/CMakeFiles/stdlib_pch_exec.dir/cmake_pch.hxx.pch;-Xclang;-include;-Xclang;/Users/farihanisraq/ns-allinone-3.45/ns-3.45/cmake-cache/CMakeFiles/stdlib_pch_exec.dir/cmake_pch.hxx
 

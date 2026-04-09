@@ -1,0 +1,5 @@
+# sweep3_packets_per_sec
+# columns: packets_per_second TcpVegas QuickVegas
+1000	0.997345	0.997737
+2000	0.999622	0.997582
+3000	0.999563	0.996843

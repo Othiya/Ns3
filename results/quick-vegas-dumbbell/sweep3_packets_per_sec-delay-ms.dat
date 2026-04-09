@@ -1,0 +1,5 @@
+# sweep3_packets_per_sec
+# columns: packets_per_second TcpVegas QuickVegas
+1000	252.765769	257.744031
+2000	252.386825	254.208114
+3000	252.280795	252.969324
